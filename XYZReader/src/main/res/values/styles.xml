@@ -24,6 +24,7 @@
     </style>
 
     <style name="Theme.Bacon.Detail" parent="Theme.Bacon">
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
 </resources>
