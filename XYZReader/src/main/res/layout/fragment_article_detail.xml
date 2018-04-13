@@ -10,15 +10,18 @@
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/detail_app_bar_height"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:elevation="@dimen/appbar_elevation"
+        >
 
         <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            android:minHeight="54dp"
-            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:contentScrim="@color/theme_primary"
+            android:theme="@style/Base.Theme.AppCompat"
             >
 
             <ImageView

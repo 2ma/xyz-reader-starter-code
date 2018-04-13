@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -49,6 +51,8 @@ public class ArticleDetailFragment extends android.support.v4.app.Fragment imple
     TextView bylineView;
     TextView bodyView;
     Button showMoreBtn;
+    private String titleText;
+    private boolean appbarCollapsed;
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.sss");
     // Use default locale format
@@ -103,6 +107,21 @@ public class ArticleDetailFragment extends android.support.v4.app.Fragment imple
         Toolbar toolbar = mRootView.findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back);
         toolbar.setNavigationOnClickListener(v -> getActivityCast().onSupportNavigateUp());
+
+        CollapsingToolbarLayout collapsingToolbar = mRootView.findViewById(R.id.collapsingToolbar);
+
+        /*
+            Based on stackoverflow answer:
+                    https://stackoverflow.com/questions/31872653/how-can-i-determine-that-collapsingtoolbar-is-collapsed
+        */
+        AppBarLayout appbar = mRootView.findViewById(R.id.appbar);
+        appbar.addOnOffsetChangedListener((appBarLayout1, offset) -> {
+            boolean old = appbarCollapsed;
+            appbarCollapsed = Math.abs(offset) == appbar.getTotalScrollRange();
+            if (old != appbarCollapsed) {
+                collapsingToolbar.setTitle(appbarCollapsed ? titleText : "");
+            }
+        });
 
         mPhotoView = mRootView.findViewById(R.id.photo);
 
@@ -171,6 +190,7 @@ public class ArticleDetailFragment extends android.support.v4.app.Fragment imple
         }
 
         if (mCursor != null) {
+            titleText = mCursor.getString(ArticleLoader.Query.TITLE);
             titleView.setText(mCursor.getString(ArticleLoader.Query.TITLE));
             Date publishedDate = parsePublishedDate();
             if (!publishedDate.before(START_OF_EPOCH.getTime())) {
