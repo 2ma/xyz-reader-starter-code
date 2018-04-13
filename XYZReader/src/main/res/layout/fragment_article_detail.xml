@@ -86,12 +86,12 @@
                     style="?android:attr/textAppearanceLarge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-condensed"
-                    android:lineSpacingMultiplier="0.9"
                     android:paddingBottom="@dimen/detail_metabar_title_bottom_padding"
+                    android:fontFamily="sans-serif-condensed"
                     android:textColor="#fff"
-                    android:textSize="@dimen/detail_title_text_size"
                     android:textStyle="bold"
+                    android:textSize="@dimen/detail_title_text_size"
+                    android:lineSpacingMultiplier="0.9"
                     tools:text="This is the title"
                     />
 
@@ -141,6 +141,8 @@
         android:src="@drawable/ic_share"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|end"
+        app:elevation="@dimen/fab_elevation"
+        app:pressedTranslationZ="@dimen/fab_press_translation_z"
         />
 
 </android.support.design.widget.CoordinatorLayout>
